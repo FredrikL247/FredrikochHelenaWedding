@@ -1,0 +1,877 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Fredrik & Helena — 26.08.16</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Albert+Sans:ital,wght@0,300;0,400;1,300&family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Spectral:wght@300;400;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --sage: #adb29a;
+      --sage-dark: #9ea18c;
+      --sage-light: #c8cbb6;
+      --crimson: #7d1c1c;
+      --crimson-light: #a02828;
+      --crimson-pale: #f2e8e8;
+      --cream: #f5f2eb;
+      --dark: #2a1a1a;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--sage);
+      color: var(--crimson);
+      font-family: 'Spectral', serif;
+      font-weight: 300;
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: center;
+      gap: 2.5rem;
+      padding: 1.1rem 2rem;
+      background: rgba(181,184,162,0.88);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid rgba(125,28,28,0.15);
+      font-family: 'Spectral', serif;
+      font-size: 0.78rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+    }
+    nav a {
+      color: var(--crimson);
+      text-decoration: none;
+      opacity: 0.8;
+      transition: opacity 0.2s;
+    }
+    nav a:hover { opacity: 1; }
+
+    /* ── HERO ── */
+    #hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 6rem 2rem 4rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    #hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at 60% 40%, rgba(125,28,28,0.07) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero-photo {
+      width: min(420px, 85vw);
+      aspect-ratio: 4/5;
+      border-radius: 2px;
+      object-fit: cover;
+      border: 3px solid var(--crimson);
+      margin-bottom: 2.8rem;
+      box-shadow: 8px 8px 0 rgba(125,28,28,0.18);
+      animation: fadeUp 1s ease both;
+    }
+
+    .hero-photo-placeholder {
+      width: min(420px, 85vw);
+      aspect-ratio: 4/5;
+      border-radius: 2px;
+      border: 3px solid var(--crimson);
+      margin-bottom: 2.8rem;
+      box-shadow: 8px 8px 0 rgba(125,28,28,0.18);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(125,28,28,0.06);
+      animation: fadeUp 1s ease both;
+      color: var(--crimson);
+      font-size: 0.85rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      opacity: 0.5;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .hero-heart {
+      font-size: 1.4rem;
+      display: block;
+      margin-bottom: 0.6rem;
+      animation: fadeUp 1s 0.2s ease both;
+      opacity: 0;
+    }
+
+    .hero-logo {
+      width: min(520px, 88vw);
+      mix-blend-mode: multiply;
+      animation: fadeUp 1s 0.3s ease both;
+      opacity: 0;
+    }
+
+    .hero-names {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(3.5rem, 12vw, 7.5rem);
+      font-weight: 900;
+      line-height: 0.92;
+      color: var(--crimson);
+      letter-spacing: -0.02em;
+      animation: fadeUp 1s 0.3s ease both;
+      opacity: 0;
+    }
+
+    .hero-names em {
+      font-style: italic;
+      display: block;
+      font-size: 0.65em;
+    }
+
+    .hero-date {
+      font-size: clamp(1.1rem, 3vw, 1.6rem);
+      letter-spacing: 0.35em;
+      margin: 1.4rem 0 0.5rem;
+      color: var(--crimson);
+      animation: fadeUp 1s 0.45s ease both;
+      opacity: 0;
+    }
+
+    .hero-details {
+      font-size: 0.9rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      opacity: 0.7;
+      line-height: 2;
+      animation: fadeUp 1s 0.6s ease both;
+      opacity: 0;
+    }
+
+    .divider {
+      width: 60px;
+      height: 1px;
+      background: var(--crimson);
+      margin: 2rem auto;
+      opacity: 0.35;
+    }
+
+    /* ── RSVP ── */
+    #rsvp-section {
+      background: rgba(125,28,28,0.06);
+      padding: 4rem 2rem;
+      text-align: center;
+      border-top: 1px solid rgba(125,28,28,0.12);
+      border-bottom: 1px solid rgba(125,28,28,0.12);
+    }
+
+    .section-label {
+      font-size: 0.72rem;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      opacity: 0.55;
+      margin-bottom: 0.5rem;
+    }
+
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 5vw, 3rem);
+      font-weight: 700;
+      margin-bottom: 0.4rem;
+    }
+
+    .rsvp-deadline {
+      font-size: 0.85rem;
+      opacity: 0.65;
+      letter-spacing: 0.08em;
+      margin-bottom: 2.5rem;
+    }
+
+    .rsvp-form {
+      max-width: 520px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 1.1rem;
+      text-align: left;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 0.72rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      margin-bottom: 0.4rem;
+      opacity: 0.7;
+    }
+
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+      width: 100%;
+      padding: 0.85rem 1rem;
+      background: rgba(125,28,28,0.04);
+      border: 1px solid rgba(125,28,28,0.3);
+      color: var(--crimson);
+      font-family: 'Spectral', serif;
+      font-size: 0.95rem;
+      outline: none;
+      transition: border-color 0.2s, background 0.2s;
+      border-radius: 1px;
+    }
+
+    .form-group input::placeholder,
+    .form-group textarea::placeholder {
+      color: rgba(125,28,28,0.35);
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus,
+    .form-group select:focus {
+      border-color: var(--crimson);
+      background: rgba(125,28,28,0.08);
+    }
+
+    .form-group textarea { resize: vertical; min-height: 90px; }
+
+    .form-group select {
+      appearance: none;
+      cursor: pointer;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%237d1c1c' stroke-width='1.5' fill='none'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 1rem center;
+      padding-right: 2.5rem;
+    }
+
+    .form-group select option {
+      background: var(--sage);
+      color: var(--crimson);
+    }
+
+    .submit-btn {
+      width: 100%;
+      padding: 1rem;
+      background: var(--crimson);
+      color: var(--sage-light);
+      border: none;
+      font-family: 'Spectral', serif;
+      font-size: 0.8rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.1s;
+      margin-top: 0.5rem;
+    }
+
+    .submit-btn:hover { background: var(--crimson-light); }
+    .submit-btn:active { transform: scale(0.99); }
+
+    .rsvp-success {
+      display: none;
+      padding: 1.5rem;
+      border: 1px solid rgba(125,28,28,0.3);
+      text-align: center;
+      font-family: 'Albert Sans', sans-serif;
+      font-size: 1.15rem;
+      
+    }
+
+    /* ── WEATHER ── */
+    #weather-widget {
+      background: rgba(125,28,28,0.05);
+      border-top: 1px solid rgba(125,28,28,0.12);
+      padding: 1.5rem 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+      font-size: 0.82rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .weather-label { opacity: 0.55; }
+    .weather-data { display: flex; align-items: center; gap: 0.6rem; }
+    .weather-temp { font-size: 1.4rem; font-family: 'Playfair Display', serif; font-weight: 700; }
+    .weather-icon { font-size: 1.6rem; }
+    .weather-desc { opacity: 0.7; font-size: 0.75rem; }
+
+    /* ── SCHEDULE ── */
+    #schema {
+      padding: 6rem 2rem;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    #schema .section-label,
+    #schema .section-title {
+      text-align: center;
+    }
+
+    .timeline {
+      margin-top: 3.5rem;
+      position: relative;
+    }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 5.5rem;
+      top: 0; bottom: 0;
+      width: 1px;
+      background: rgba(125,28,28,0.2);
+    }
+
+    .timeline-item {
+      display: flex;
+      gap: 2rem;
+      padding: 0 0 2.8rem 0;
+      position: relative;
+      align-items: flex-start;
+    }
+
+    .timeline-time {
+      font-size: 0.78rem;
+      letter-spacing: 0.12em;
+      color: var(--crimson);
+      opacity: 0.6;
+      min-width: 4.5rem;
+      text-align: right;
+      padding-top: 0.1rem;
+      font-weight: 600;
+    }
+
+    .timeline-dot {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: var(--crimson);
+      border: 2px solid var(--sage);
+      flex-shrink: 0;
+      margin-top: 0.25rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .timeline-content {
+      flex: 1;
+      padding-bottom: 0.2rem;
+    }
+
+    .timeline-event {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.15rem;
+      font-weight: 700;
+      line-height: 1.2;
+    }
+
+    .timeline-sub {
+      font-size: 0.85rem;
+      opacity: 0.6;
+      margin-top: 0.2rem;
+      font-family: 'Albert Sans', sans-serif;
+    }
+
+    .tba-badge {
+      display: inline-block;
+      font-size: 0.6rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      border: 1px solid rgba(125,28,28,0.4);
+      padding: 0.15rem 0.5rem;
+      margin-left: 0.6rem;
+      vertical-align: middle;
+      opacity: 0.55;
+    }
+
+    /* ── KVÄLLEN INNAN ── */
+    #kvallen-innan {
+      padding: 6rem 2rem;
+      max-width: 600px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .kvallen-text {
+      font-family: 'Albert Sans', sans-serif;
+      font-style: normal;
+      font-size: 1.05rem;
+      line-height: 1.9;
+      opacity: 0.85;
+      margin-top: 1.5rem;
+    }
+
+    /* ── PLATS ── */
+    #plats {
+      background: rgba(125,28,28,0.06);
+      border-top: 1px solid rgba(125,28,28,0.12);
+      border-bottom: 1px solid rgba(125,28,28,0.12);
+      padding: 6rem 2rem;
+    }
+
+    .plats-inner {
+      max-width: 860px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: start;
+    }
+
+    .plats-text .section-label,
+    .plats-text .section-title {
+      text-align: left;
+    }
+
+    .plats-desc {
+      font-family: 'Albert Sans', sans-serif;
+      font-size: 1.05rem;
+      
+      line-height: 1.85;
+      margin-top: 1.5rem;
+      opacity: 0.85;
+    }
+
+    .plats-address {
+      margin-top: 1.5rem;
+      font-size: 0.8rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      opacity: 0.6;
+      line-height: 2;
+    }
+
+    .map-container {
+      border: 2px solid rgba(125,28,28,0.25);
+      overflow: hidden;
+      height: 320px;
+      box-shadow: 6px 6px 0 rgba(125,28,28,0.1);
+    }
+
+    .map-container iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+      filter: sepia(30%) saturate(80%);
+    }
+
+    /* ── HOTELL ── */
+    #hotell {
+      padding: 6rem 2rem;
+      max-width: 700px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .hotell-intro {
+      margin-top: 0.8rem;
+      font-family: 'Albert Sans', sans-serif;
+      
+      opacity: 0.6;
+      font-size: 1rem;
+    }
+    .hotell-grid {
+      margin-top: 2.5rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 2.5rem 3rem;
+      text-align: left;
+    }
+    .hotell-group-title {
+      font-size: 0.7rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      opacity: 0.5;
+      margin-bottom: 1rem;
+      font-family: 'Spectral', serif;
+      font-weight: 400;
+    }
+    .hotell-card {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      padding: 0.9rem 0;
+      border-bottom: 1px solid rgba(125,28,28,0.12);
+    }
+    .hotell-card--ours { border-color: rgba(125,28,28,0.3); }
+    .hotell-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 0.95rem;
+      font-weight: 700;
+      line-height: 1.3;
+    }
+    .hotell-note {
+      font-size: 0.75rem;
+      opacity: 0.55;
+      margin-top: 0.15rem;
+      font-family: 'Albert Sans', sans-serif;
+    }
+    .hotell-us-badge {
+      display: inline-block;
+      font-family: 'Spectral', serif;
+      font-size: 0.65rem;
+      font-weight: 400;
+      font-style: normal;
+      letter-spacing: 0.08em;
+      opacity: 0.7;
+      margin-left: 0.4rem;
+    }
+    .hotell-link {
+      flex-shrink: 0;
+      font-size: 0.7rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--crimson);
+      text-decoration: none;
+      border-bottom: 1px solid rgba(125,28,28,0.35);
+      padding-bottom: 1px;
+      transition: opacity 0.2s;
+      white-space: nowrap;
+    }
+    .hotell-link:hover { opacity: 0.6; }
+    @media (max-width: 700px) {
+      .hotell-grid { grid-template-columns: 1fr; gap: 2rem; }
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      text-align: center;
+      padding: 3rem 2rem;
+      border-top: 1px solid rgba(125,28,28,0.15);
+      font-size: 0.75rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      opacity: 0.45;
+      line-height: 2.5;
+    }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 640px) {
+      .plats-inner { grid-template-columns: 1fr; gap: 2.5rem; }
+      .timeline::before { left: 4.5rem; }
+      nav { gap: 1.2rem; font-size: 0.7rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="#hero">Hem</a>
+    <a href="#rsvp-section">OSA</a>
+    <a href="#schema">Schema</a>
+    <a href="#plats">Plats</a>
+    <a href="#hotell">Hotell</a>
+    <a href="#kvallen-innan">Dagen innan</a>
+  </nav>
+
+  <!-- HERO -->
+  <section id="hero">
+    <img src="Asset_4_4x.png" class="hero-logo" alt="Fredrik & Helena 26.08.16" />
+  </section>
+
+  <!-- RSVP -->
+  <section id="rsvp-section">
+    <p class="section-label">Svara på inbjudan</p>
+    <h2 class="section-title">OSA</h2>
+    <p class="rsvp-deadline">Svara senast 16 juli · 0705691788</p>
+
+    <form class="rsvp-form" id="rsvpForm">
+      <div class="form-group">
+        <label>Ditt namn</label>
+        <input type="text" placeholder="För- och efternamn" required />
+      </div>
+
+      <div class="form-group">
+        <label>Kommer du?</label>
+        <select required>
+          <option value="" disabled selected>Välj...</option>
+          <option value="ja">Ja, självklart! 🥂</option>
+          <option value="nej">Nej, tyvärr inte</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Matpreferenser & allergier</label>
+        <input type="text" placeholder="T.ex. vegetarisk, glutenfri, nötter..." />
+      </div>
+
+      <div class="form-group">
+        <label>Önska en låt på dansgolvet 🎵</label>
+        <input type="text" placeholder="Artist & låtnamn" />
+      </div>
+
+      <button type="submit" class="submit-btn">Skicka svar</button>
+    </form>
+
+    <div class="rsvp-success" id="rsvpSuccess">
+      Tack! Vi ser fram emot att fira med dig. ♥
+    </div>
+  </section>
+
+  <!-- WEATHER -->
+  <div id="weather-widget">
+    <span class="weather-label">Väder i Norrköping 26 aug</span>
+    <div class="weather-data" id="weatherData">
+      <span class="weather-icon">🌤</span>
+      <span class="weather-temp" id="weatherTemp">—</span>
+      <span class="weather-desc" id="weatherDesc">Hämtar väder...</span>
+    </div>
+  </div>
+
+  <!-- SCHEMA -->
+  <section id="schema">
+    <p class="section-label">Dagens program</p>
+    <h2 class="section-title">Schema</h2>
+
+    <div class="timeline">
+      <div class="timeline-item">
+        <span class="timeline-time">15.00</span>
+        <div class="timeline-dot"></div>
+        <div class="timeline-content">
+          <div class="timeline-event">Samling vid kajen utanför Tullhuset</div>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <span class="timeline-time">15.30</span>
+        <div class="timeline-dot"></div>
+        <div class="timeline-content">
+          <div class="timeline-event">Vigsel</div>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <span class="timeline-time">16.00</span>
+        <div class="timeline-dot"></div>
+        <div class="timeline-content">
+          <div class="timeline-event">Skål på uteserveringen</div>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <span class="timeline-time">17.30</span>
+        <div class="timeline-dot"></div>
+        <div class="timeline-content">
+          <div class="timeline-event">Middag</div>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <span class="timeline-time">21.00</span>
+        <div class="timeline-dot"></div>
+        <div class="timeline-content">
+          <div class="timeline-event">Dansgolv</div>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <span class="timeline-time">01.00</span>
+        <div class="timeline-dot"></div>
+        <div class="timeline-content">
+          <div class="timeline-event">God natt!</div>
+          <div class="timeline-sub">Tullhuset stänger — Fredrik & Helena går och lägger sig</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PLATS -->
+  <section id="plats">
+    <div class="plats-inner">
+      <div class="plats-text">
+        <p class="section-label">Hitta hit</p>
+        <h2 class="section-title">Platsen</h2>
+        <p class="plats-desc">
+          Bröllopet hålls på Brasseriet Tullhuset — ett magiskt ställe vid kajen i Norrköping, 
+          inrymt i det gamla tullhuset med utsikt över Motala ström.
+        </p>
+        <p class="plats-address">
+          Brasseriet Tullhuset<br>
+          Saltängsgatan 30<br>
+          602 22 Norrköping
+        </p>
+      </div>
+      <div>
+        <div class="map-container">
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2034.7!2d16.192592!3d58.594876!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x46594c9a1b6fdd99%3A0xdf08e57d4f0d0a1b!2sSalt%C3%A4ngsgatan+30%2C+602+22+Norrk%C3%B6ping!5e0!3m2!1ssv!2sse!4v1"
+            allowfullscreen=""
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade">
+          </iframe>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOTELL -->
+  <section id="hotell">
+    <p class="section-label">Bo kvar i stan</p>
+    <h2 class="section-title">Hotell</h2>
+    <p class="hotell-intro">Här är några tips på hotell i närheten av Tullhuset. Ifall du inte har möjlighet att sova över går sista tåget till Stockholm 22:17!</p>
+
+    <div class="hotell-grid">
+      <div class="hotell-group">
+        <h3 class="hotell-group-title">Närmast Tullhuset</h3>
+        <div class="hotell-card">
+          <div class="hotell-card-info">
+            <div class="hotell-name">Comfort Hotel Norrköping</div>
+            <div class="hotell-note">Andra sidan gatan</div>
+          </div>
+          <a href="https://www.booking.com/searchresults.en-gb.html?aid=311984&highlighted_hotels=1583743&checkin=2026-08-15&checkout=2026-08-17&city=-2508303" target="_blank" class="hotell-link">Boka →</a>
+        </div>
+        <div class="hotell-card">
+          <div class="hotell-card-info">
+            <div class="hotell-name">Scandic Strömmen</div>
+          </div>
+          <a href="https://www.scandichotels.com/sv/hotell/scandic-strommen" target="_blank" class="hotell-link">Boka →</a>
+        </div>
+      </div>
+
+      <div class="hotell-group">
+        <h3 class="hotell-group-title">Bäst betyg</h3>
+        <div class="hotell-card hotell-card--ours">
+          <div class="hotell-card-info">
+            <div class="hotell-name">Strand Hotel <span class="hotell-us-badge">Vi bor här ♥</span></div>
+          </div>
+          <a href="https://www.booking.com/hotel/se/strand-norrkapping.en-gb.html?checkin=2026-08-16&checkout=2026-08-17" target="_blank" class="hotell-link">Boka →</a>
+        </div>
+        <div class="hotell-card">
+          <div class="hotell-card-info">
+            <div class="hotell-name">VANDER Aparthotel Inre Hamnen</div>
+            <div class="hotell-note">Också bland det billigaste</div>
+          </div>
+          <a href="https://www.booking.com/hotel/se/vander-inre-hamnen-norrkoping1.en-gb.html?checkin=2026-08-15&checkout=2026-08-17" target="_blank" class="hotell-link">Boka →</a>
+        </div>
+        <div class="hotell-card">
+          <div class="hotell-card-info">
+            <div class="hotell-name">Profilhotels President</div>
+            <div class="hotell-note">Också bland det billigaste</div>
+          </div>
+          <a href="https://www.booking.com/hotel/se/president-norrkoping.en-gb.html?checkin=2026-08-15&checkout=2026-08-17" target="_blank" class="hotell-link">Boka →</a>
+        </div>
+      </div>
+
+      <div class="hotell-group">
+        <h3 class="hotell-group-title">Fler närliggande hotell</h3>
+        <div class="hotell-card">
+          <div class="hotell-card-info">
+            <div class="hotell-name">Elite Grand Hotel</div>
+          </div>
+          <a href="https://www.booking.com/hotel/se/elite-grand.en-gb.html?checkin=2026-08-15&checkout=2026-08-17" target="_blank" class="hotell-link">Boka →</a>
+        </div>
+        <div class="hotell-card">
+          <div class="hotell-card-info">
+            <div class="hotell-name">Vattengrändens Vandrarhem & Hotel</div>
+          </div>
+          <a href="https://www.booking.com/hotel/se/vattengrandens-vandrarhem-amp.en-gb.html?checkin=2026-08-15&checkout=2026-08-17" target="_blank" class="hotell-link">Boka →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- KVÄLLEN INNAN -->
+  <section id="kvallen-innan">
+    <p class="section-label">Augustifestivalen</p>
+    <h2 class="section-title">Dagen innan</h2>
+    <p class="kvallen-text">På lördagskvällen är det Augustifestivalen i Norrköping och många hotell är fullbokade. Vi kommer vara i stan och gå ut och ta en öl. Inga officiella bröllopsplaner men de som vill vara borta en natt till är väldigt välkomna!</p>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    Fredrik & Helena &nbsp;·&nbsp; 26 Augusti 2016 &nbsp;·&nbsp; Norrköping<br>
+    fredrikochhelena.com
+  </footer>
+
+  <script>
+    // RSVP form
+    document.getElementById('rsvpForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      this.style.display = 'none';
+      document.getElementById('rsvpSuccess').style.display = 'block';
+    });
+
+    // Weather — Open-Meteo (free, no key needed)
+    async function loadWeather() {
+      try {
+        // Norrköping coordinates, fetching forecast for Aug 26
+        const url = 'https://api.open-meteo.com/v1/forecast?latitude=58.5942&longitude=16.1826&daily=temperature_2m_max,temperature_2m_min,weathercode&timezone=Europe%2FStockholm&forecast_days=16';
+        const r = await fetch(url);
+        const d = await r.json();
+
+        // Try to find Aug 26 in the forecast window
+        const today = new Date();
+        const weddingDate = new Date('2026-08-26');
+        const daysDiff = Math.round((weddingDate - today) / (1000*60*60*24));
+
+        let tempMax, tempMin, code;
+        if (daysDiff >= 0 && daysDiff < 16) {
+          tempMax = d.daily.temperature_2m_max[daysDiff];
+          tempMin = d.daily.temperature_2m_min[daysDiff];
+          code = d.daily.weathercode[daysDiff];
+          const icon = wmoIcon(code);
+          const desc = wmoDesc(code);
+          document.getElementById('weatherTemp').textContent = `${Math.round(tempMin)}–${Math.round(tempMax)}°C`;
+          document.getElementById('weatherDesc').textContent = desc;
+          document.querySelector('.weather-icon').textContent = icon;
+        } else {
+          // Not in forecast range yet
+          document.getElementById('weatherTemp').textContent = '—';
+          document.getElementById('weatherDesc').textContent = 'Prognos tillgänglig närmre bröllopet';
+        }
+      } catch(e) {
+        document.getElementById('weatherDesc').textContent = 'Kunde inte hämta prognos';
+      }
+    }
+
+    function wmoIcon(code) {
+      if (code === 0) return '☀️';
+      if (code <= 2) return '🌤';
+      if (code <= 3) return '☁️';
+      if (code <= 49) return '🌫';
+      if (code <= 59) return '🌦';
+      if (code <= 69) return '🌧';
+      if (code <= 79) return '🌨';
+      if (code <= 82) return '🌧';
+      if (code <= 84) return '🌨';
+      if (code <= 99) return '⛈';
+      return '🌤';
+    }
+
+    function wmoDesc(code) {
+      if (code === 0) return 'Klart';
+      if (code <= 2) return 'Delvis molnigt';
+      if (code <= 3) return 'Mulet';
+      if (code <= 49) return 'Dimma';
+      if (code <= 59) return 'Duggregn';
+      if (code <= 69) return 'Regn';
+      if (code <= 79) return 'Snö';
+      if (code <= 82) return 'Regnskurar';
+      if (code <= 99) return 'Åska';
+      return 'Varierat';
+    }
+
+    loadWeather();
+  </script>
+</body>
+</html>

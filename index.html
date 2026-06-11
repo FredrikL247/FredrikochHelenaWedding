@@ -804,9 +804,33 @@
   </footer>
 
   <script>
-    // RSVP form
-    document.getElementById('rsvpForm').addEventListener('submit', function(e) {
+    // RSVP form → Google Sheets
+    document.getElementById('rsvpForm').addEventListener('submit', async function(e) {
       e.preventDefault();
+
+      const btn = this.querySelector('.submit-btn');
+      btn.textContent = 'Skickar...';
+      btn.disabled = true;
+
+      const fields = this.querySelectorAll('input, select');
+      const payload = {
+        namn: fields[0].value,
+        kommer: fields[1].value,
+        mat: fields[2].value,
+        lat: fields[3].value
+      };
+
+      try {
+        await fetch('https://script.google.com/macros/s/AKfycbyBJ1Xt3rX1d8UWQAZXP2_Tp3hHaE2x4uS94LoTy_DRJIY00jzsTnhwDdsPZ-NED2HK/exec', {
+          method: 'POST',
+          mode: 'no-cors',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+      } catch(err) {
+        console.error('Submission error:', err);
+      }
+
       this.style.display = 'none';
       document.getElementById('rsvpSuccess').style.display = 'block';
     });
